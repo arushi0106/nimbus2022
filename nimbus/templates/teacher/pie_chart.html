@@ -1,0 +1,99 @@
+{% extends 'basic.html' %}
+
+{% block body %}
+<div class="container">
+  <div class="card mb-3 mt-3">
+    <div class="card-body" style="background-color:#fff">
+
+      <h3 class="title"> Comparison of your speed vs ideal speed in completing units</h3>
+      <div class="">
+        <canvas id="pie-chart1"></canvas>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="card mb-3 mt-3">
+    <div class="card-body" style="background-color:#fff">
+      <h3 class="title"> Overview of course progress in various batches </h3>
+
+      <div class="">
+        <canvas id="pie-chart2"></canvas>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+
+    var config1 = {
+      type: 'bar',
+      data: {
+        datasets: [{
+          data: {{ data2A|safe }},
+          backgroundColor: [
+            '#fbdcc4', '#fbdcc4', '#fbdcc4', '#fbdcc4', '#fbdcc4'
+          ],
+          label: 'Lectures-Taken'
+        },{
+          data: {{ data2B|safe }},
+          backgroundColor: [
+            '#7d0633', '#7d0633', '#7d0633', '#7d0633', '#7d0633'
+          ],
+          label: 'Ideal-Lectures'
+        }],
+        labels: {{ labels2|safe }}
+      },
+
+      options: {
+        scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          },
+        responsive: true
+    }
+    };
+    var config2 = {
+      type: 'bar',
+      data: {
+        datasets: [{
+          data: {{ data|safe }},
+          backgroundColor: [
+            '#fbdcc4', '#fbdcc4', '#fbdcc4', '#fbdcc4', '#fbdcc4'
+          ],
+          color:[
+            '#fbdcc4'
+          ],
+          label: 'Units-finished'
+        }],
+        labels: {{ labels|safe }}
+      },
+      options: {
+        scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          },
+        responsive: true
+      }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('pie-chart1').getContext('2d');
+      window.myPie = new Chart(ctx, config1);
+      var ctx = document.getElementById('pie-chart2').getContext('2d');
+      window.myPie = new Chart(ctx, config2);
+    };
+
+  </script>
+
+{% endblock body%}

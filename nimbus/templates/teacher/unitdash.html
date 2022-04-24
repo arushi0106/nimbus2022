@@ -1,0 +1,84 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block body %}
+<div class="container">
+  <div class="card mb-3 mt-3">
+    <div class="card-body" style="background-color:#fff">
+      <h1 class="title">{{batchdetails.0.batchcourse.course}}</h1>
+      <table class="table table-borderless">
+        <thead>
+          <tr class="tablehead">
+            <td scope="col">S.No.</td>
+            <td scope="col">Unit No</td>
+            <td scope="col">Unit Name</td>
+            <td scope="col">Status</td>
+            <td scope="col">Rating</td>
+            <td scope="col">Lecture Taken</td>
+            <td scope="col">Add status</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for batchdetail in batchdetails%}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+
+            <td>{{batchdetail.unit.unit_no}}</td>
+            <td>{{batchdetail.unit.name}}</td>
+            <td>{{batchdetail.is_completed}}</td>
+            {% if batchdetail.is_completed %}
+            <td>{{batchdetail.rating}}</td>
+            <td>{{batchdetail.lecture_taken}}</td>
+            <td>Submitted</td>
+
+            {% else %}
+            <td>Unrated</td>
+            <td>0</td>
+            <td>
+              <!-- Button trigger modal -->
+                                          <button type="button" class="btn " data-toggle="modal"
+                                                  data-target="#exampleModal1">
+                                                  Enter
+                                          </button>
+
+                                          <!-- Modal -->
+                                          <div class="modal fade" id="exampleModal1" tabindex="-1"
+                                                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                  <div class="modal-dialog modal-dialog-centered">
+                                                          <div class="modal-content">
+                                                                  <div class="modal-header">
+                                                                          <form method="POST" action="{%url 'unit_complete_teacher' bid batchdetail.unit_id%}">
+                                                                      {% csrf_token %}
+
+                                                                        <input class="form-check-input" name="comp" type="checkbox" id="inlineCheckbox1" value="Completed">
+
+                                                                        <label class="form-check-label" for="inlineCheckbox1">Completed</label>
+                                                                        <input type="number" class="form-control" name="lecture" id="exampleInputPassword1" placeholder="No. of lectures">
+                                                                        <br>
+                                                                      <button type="submit" class="btn">Submit</button>
+                                                                    </form>
+
+                                                                  </div>
+
+
+                                                          </div>
+                                                  </div>
+                                          </div>
+
+
+
+              </td>
+
+            {% endif %}
+
+          </tr>
+
+          {% endfor%}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+{% endblock body %}

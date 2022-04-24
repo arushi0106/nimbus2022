@@ -9,27 +9,25 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-6 border-right">
-				<h1 class="subheading">Sign Up for Students</h1>
+				<h1 class="subheading">Sign Up for Teachers</h1>
+
 			</div>
 			<div class="col-6 form">
-				<form method="POST" action="/signup_student">
+				<form method="POST" action="/signup_teacher">
 					{% csrf_token %}
-					<h5 class="row">Email ID :</h5>
+					<h5 class="row">Email Id :</h5>
 					<div class="row">
 						<input type="email" class="form-control" name="email" placeholder="millie.brown@gmail.com" >
-
 					</div>
 
 					<h5 class="row">Password :</h5>
 					<div class="row">
 						<input type="password" class="form-control" name="password" placeholder="Password" >
-
 					</div>
 
 					<h5 class="row">Confirm Password :</h5>
 					<div class="row">
 						<input type="password" class="form-control" name="confpassword" placeholder="Password" >
-
 					</div>
 					<br>
 
@@ -42,29 +40,29 @@
 		</div>
 </section>
 
-{% endblock body %}
+	{% endblock body %}
 
-{% block script %}
-<script>
-	const inputs = document.querySelectorAll(".input");
+	{% block script %}
+	<script>
+		const inputs = document.querySelectorAll(".input");
 
 
-	function addcl() {
-		let parent = this.parentNode.parentNode;
-		parent.classList.add("focus");
-	}
-
-	function remcl() {
-		let parent = this.parentNode.parentNode;
-		if (this.value == "") {
-			parent.classList.remove("focus");
+		function addcl() {
+			let parent = this.parentNode.parentNode;
+			parent.classList.add("focus");
 		}
-	}
+
+		function remcl() {
+			let parent = this.parentNode.parentNode;
+			if (this.value == "") {
+				parent.classList.remove("focus");
+			}
+		}
 
 
-	inputs.forEach(input => {
-		input.addEventListener("focus", addcl);
-		input.addEventListener("blur", remcl);
-	});
-</script>
-{% endblock script %}
+		inputs.forEach(input => {
+			input.addEventListener("focus", addcl);
+			input.addEventListener("blur", remcl);
+		});
+	</script>
+	{% endblock script %}
